@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowRight, Target, TrendingUp, Users, Zap, Calendar, Wallet, Trophy, Star, CheckCircle, BookOpen, Brain, Dumbbell, DollarSign, Crown, Sparkles, Award, MessageCircle, ThumbsUp, UserCheck, Bot, HelpCircle, Shield, Globe, Gem, Diamond, Copy, Gift, Send, Eye, CreditCard, Play, Lock, Video, Music, User, Mail, Key, Clock, Award as AwardIcon, ChevronRight, Home, Settings, LogOut, Menu, X, Plus, Edit3, Save, Trash2, Bell, Search, Filter, Download, Upload, Share2, Heart, Bookmark, Flag, MoreHorizontal, Utensils, Activity, Droplets, Zap as Lightning, BarChart3, PieChart, LineChart, Calculator, FileText, Printer, Camera, Phone, MapPin, Medal, Flame, Coffee, Apple, Beef, Wheat, Fish, Milk, Candy, Salad } from 'lucide-react'
+import { ArrowRight, Target, TrendingUp, Users, Zap, Calendar, Wallet, Trophy, Star, CheckCircle, BookOpen, Brain, Dumbbell, DollarSign, Crown, Sparkles, Award, MessageCircle, ThumbsUp, UserCheck, Bot, HelpCircle, Shield, Globe, Gem, Diamond, Copy, Gift, Send, Eye, CreditCard, Play, Lock, Video, Music, User, Mail, Key, Clock, Award as AwardIcon, ChevronRight, Home, Settings, LogOut, Menu, X, Plus, Edit3, Save, Trash2, Bell, Search, Filter, Download, Upload, Share2, Heart, Bookmark, Flag, MoreHorizontal, Utensils, Activity, Droplets, Zap as Lightning, BarChart3, PieChart, LineChart, Calculator, FileText, Printer, Camera, Phone, MapPin, Medal, Flame, Coffee, Apple, Beef, Wheat, Fish, Milk, Candy, Salad, ShoppingCart, TrendingDown, Package, Megaphone, Lightbulb, Palette, Briefcase, Monitor, Smartphone, Headphones, Mic, Languages } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
 export default function EliteLifePresentation() {
@@ -27,6 +27,8 @@ export default function EliteLifePresentation() {
   const [showCommunityChat, setShowCommunityChat] = useState(false)
   const [showRanking, setShowRanking] = useState(false)
   const [showPrintableWorksheets, setShowPrintableWorksheets] = useState(false)
+  const [currentLanguage, setCurrentLanguage] = useState('pt')
+  const [showLanguageMenu, setShowLanguageMenu] = useState(false)
   const [dailyNutrition, setDailyNutrition] = useState({
     water: 0,
     calories: 0,
@@ -68,9 +70,58 @@ export default function EliteLifePresentation() {
     { name: 'Ricardo Santos', earnings: 'R$ 45.230', sales: 89, avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face', badge: 'Diamond Elite' },
     { name: 'Juliana Lima', earnings: 'R$ 38.950', sales: 76, avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face', badge: 'Gold Elite' },
     { name: 'Fernando Costa', earnings: 'R$ 32.180', sales: 64, avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face', badge: 'Gold Elite' },
-    { name: 'Carla Mendes', earnings: 'R$ 28.760', sales: 58, avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face', badge: 'Silver Elite' },
+    { user: 'Carla Mendes', earnings: 'R$ 28.760', sales: 58, avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face', badge: 'Silver Elite' },
     { name: 'Bruno Silva', earnings: 'R$ 24.340', sales: 47, avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=40&h=40&fit=crop&crop=face', badge: 'Silver Elite' }
   ])
+
+  const languages = {
+    pt: {
+      title: 'EliteLife',
+      subtitle: 'A plataforma exclusiva que transforma pessoas comuns em milionários saudáveis',
+      freeTest: 'TESTE GRÁTIS AGORA',
+      completeQuiz: 'FAZER QUIZ COMPLETO',
+      courses: 'Cursos',
+      agenda: 'Agenda',
+      nutrition: 'Nutrição',
+      wallet: 'Carteira',
+      home: 'Início'
+    },
+    en: {
+      title: 'EliteLife',
+      subtitle: 'The exclusive platform that transforms ordinary people into healthy millionaires',
+      freeTest: 'FREE TEST NOW',
+      completeQuiz: 'TAKE COMPLETE QUIZ',
+      courses: 'Courses',
+      agenda: 'Schedule',
+      nutrition: 'Nutrition',
+      wallet: 'Wallet',
+      home: 'Home'
+    },
+    es: {
+      title: 'EliteLife',
+      subtitle: 'La plataforma exclusiva que transforma personas comunes en millonarios saludables',
+      freeTest: 'PRUEBA GRATIS AHORA',
+      completeQuiz: 'HACER QUIZ COMPLETO',
+      courses: 'Cursos',
+      agenda: 'Agenda',
+      nutrition: 'Nutrición',
+      wallet: 'Cartera',
+      home: 'Inicio'
+    },
+    fr: {
+      title: 'EliteLife',
+      subtitle: 'La plateforme exclusive qui transforme les gens ordinaires en millionnaires en bonne santé',
+      freeTest: 'TEST GRATUIT MAINTENANT',
+      completeQuiz: 'FAIRE LE QUIZ COMPLET',
+      courses: 'Cours',
+      agenda: 'Agenda',
+      nutrition: 'Nutrition',
+      wallet: 'Portefeuille',
+      home: 'Accueil'
+    }
+  }
+
+  const t = languages[currentLanguage as keyof typeof languages]
 
   const quizQuestions = [
     {
@@ -210,7 +261,9 @@ export default function EliteLifePresentation() {
     }
   ]
 
+  // Expandir para 40 cursos com trilhas diversificadas
   const courses = [
+    // Cursos Originais (9)
     {
       id: 1,
       title: 'Corpo de Elite - Transformação Física Acelerada',
@@ -219,12 +272,13 @@ export default function EliteLifePresentation() {
       modules: 15,
       level: 'Iniciante a Avançado',
       thumbnail: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop',
-      locked: true,
+      locked: false,
       category: 'Fitness',
       instructor: 'Dr. Marcus Silva',
       rating: 4.9,
       students: 12500,
-      preview: 'Vídeo de abertura: "Revolução Corporal Elite" - Transformação total em 21 dias'
+      preview: 'Vídeo de abertura: "Revolução Corporal Elite" - Transformação total em 21 dias',
+      bookRecommendations: ['Corpo de Elite - Manual Completo', 'Nutrição para Atletas', 'Psicologia do Fitness']
     },
     {
       id: 2,
@@ -239,7 +293,8 @@ export default function EliteLifePresentation() {
       instructor: 'Dra. Ana Carolina',
       rating: 4.8,
       students: 18200,
-      preview: 'Vídeo de abertura: "Desperte o Milionário Interior" - Reprogramação mental completa'
+      preview: 'Vídeo de abertura: "Desperte o Milionário Interior" - Reprogramação mental completa',
+      bookRecommendations: ['Pai Rico Pai Pobre', 'O Poder do Subconsciente', 'Mindset Carol Dweck']
     },
     {
       id: 3,
@@ -254,7 +309,8 @@ export default function EliteLifePresentation() {
       instructor: 'Prof. Roberto Lima',
       rating: 4.9,
       students: 9800,
-      preview: 'Vídeo de abertura: "Império Financeiro Digital" - Do zero ao primeiro milhão'
+      preview: 'Vídeo de abertura: "Império Financeiro Digital" - Do zero ao primeiro milhão',
+      bookRecommendations: ['O Investidor Inteligente', 'Ações Comuns Lucros Extraordinários', 'A Lógica do Cisne Negro']
     },
     {
       id: 4,
@@ -269,7 +325,8 @@ export default function EliteLifePresentation() {
       instructor: 'Carlos Mendes',
       rating: 4.7,
       students: 7500,
-      preview: 'Vídeo de abertura: "Rede de Ouro" - Conexões que transformam vidas'
+      preview: 'Vídeo de abertura: "Rede de Ouro" - Conexões que transformam vidas',
+      bookRecommendations: ['Como Fazer Amigos e Influenciar Pessoas', 'Never Eat Alone', 'The Tipping Point']
     },
     {
       id: 5,
@@ -284,7 +341,8 @@ export default function EliteLifePresentation() {
       instructor: 'Marina Santos',
       rating: 4.8,
       students: 15600,
-      preview: 'Vídeo de abertura: "Máquina de Resultados" - 10x mais produtivo'
+      preview: 'Vídeo de abertura: "Máquina de Resultados" - 10x mais produtivo',
+      bookRecommendations: ['Deep Work', 'A Semana de 4 Horas', 'Atomic Habits']
     },
     {
       id: 6,
@@ -299,7 +357,8 @@ export default function EliteLifePresentation() {
       instructor: 'Dr. Fernando Costa',
       rating: 4.9,
       students: 6200,
-      preview: 'Vídeo de abertura: "Líder Visionário" - Comando absoluto de equipes'
+      preview: 'Vídeo de abertura: "Líder Visionário" - Comando absoluto de equipes',
+      bookRecommendations: ['Liderança', 'Good to Great', 'The 7 Habits of Highly Effective People']
     },
     {
       id: 7,
@@ -314,7 +373,8 @@ export default function EliteLifePresentation() {
       instructor: 'Prof. Diego Martins',
       rating: 4.9,
       students: 8900,
-      preview: 'Vídeo de abertura: "Império E-commerce" - Do zero aos R$ 100k/mês'
+      preview: 'Vídeo de abertura: "Império E-commerce" - Do zero aos R$ 100k/mês',
+      bookRecommendations: ['E-commerce do Zero', 'Dropshipping Success', 'Amazon FBA Bible']
     },
     {
       id: 8,
@@ -329,7 +389,8 @@ export default function EliteLifePresentation() {
       instructor: 'Influencer Sarah Costa',
       rating: 4.8,
       students: 11200,
-      preview: 'Vídeo de abertura: "Viral Revolution" - Milhões de views garantidos'
+      preview: 'Vídeo de abertura: "Viral Revolution" - Milhões de views garantidos',
+      bookRecommendations: ['Crush It!', 'Jab, Jab, Jab, Right Hook', 'Platform']
     },
     {
       id: 9,
@@ -344,7 +405,505 @@ export default function EliteLifePresentation() {
       instructor: 'Dra. Nutricionista Carla Reis',
       rating: 4.9,
       students: 14300,
-      preview: 'Vídeo de abertura: "Combustível Elite" - Alimentação para campeões'
+      preview: 'Vídeo de abertura: "Combustível Elite" - Alimentação para campeões',
+      bookRecommendations: ['Como Não Morrer', 'The China Study', 'Nutrição Comportamental']
+    },
+    // Novos 31 cursos para completar 40
+    {
+      id: 10,
+      title: 'Criptomoedas Elite - Revolução Digital',
+      description: 'Baseado em MIT Blockchain Lab e Stanford Crypto Research',
+      duration: '35 dias',
+      modules: 20,
+      level: 'Intermediário',
+      thumbnail: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Cripto',
+      instructor: 'Prof. Bitcoin Master',
+      rating: 4.7,
+      students: 8500,
+      preview: 'Vídeo de abertura: "Revolução Crypto Elite" - Dominando o futuro digital',
+      bookRecommendations: ['Mastering Bitcoin', 'The Bitcoin Standard', 'Blockchain Revolution']
+    },
+    {
+      id: 11,
+      title: 'Oratória de Impacto - Comunicação Elite',
+      description: 'Baseado em TED Talks methodology e Harvard Communication',
+      duration: '25 dias',
+      modules: 15,
+      level: 'Todos os níveis',
+      thumbnail: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Comunicação',
+      instructor: 'Speaker Elite João',
+      rating: 4.8,
+      students: 9200,
+      preview: 'Vídeo de abertura: "Voz que Transforma" - Comunicação magnética',
+      bookRecommendations: ['Talk Like TED', 'Made to Stick', 'The Presentation Secrets of Steve Jobs']
+    },
+    {
+      id: 12,
+      title: 'Relacionamentos Elite - Inteligência Emocional',
+      description: 'Baseado em Yale Emotional Intelligence e Harvard Psychology',
+      duration: '30 dias',
+      modules: 18,
+      level: 'Todos os níveis',
+      thumbnail: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Relacionamentos',
+      instructor: 'Dra. Amor Elite',
+      rating: 4.9,
+      students: 12800,
+      preview: 'Vídeo de abertura: "Conexões Profundas" - Relacionamentos transformadores',
+      bookRecommendations: ['Inteligência Emocional', 'Os 5 Linguagens do Amor', 'Attached']
+    },
+    {
+      id: 13,
+      title: 'Vendas Elite - Persuasão Magnética',
+      description: 'Baseado em Cialdini Psychology e Sandler Sales Institute',
+      duration: '40 dias',
+      modules: 25,
+      level: 'Intermediário',
+      thumbnail: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Vendas',
+      instructor: 'Master Vendedor Pro',
+      rating: 4.8,
+      students: 10500,
+      preview: 'Vídeo de abertura: "Vendedor Magnético" - Persuasão irresistível',
+      bookRecommendations: ['As Armas da Persuasão', 'SPIN Selling', 'The Psychology of Selling']
+    },
+    {
+      id: 14,
+      title: 'Yoga Elite - Flexibilidade Total',
+      description: 'Baseado em Iyengar Institute e Ashtanga Yoga Research',
+      duration: '60 dias',
+      modules: 30,
+      level: 'Iniciante a Avançado',
+      thumbnail: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Bem-estar',
+      instructor: 'Yogi Master Elite',
+      rating: 4.9,
+      students: 7800,
+      preview: 'Vídeo de abertura: "Flexibilidade Suprema" - Corpo e mente em harmonia',
+      bookRecommendations: ['Light on Yoga', 'The Science of Yoga', 'Yoga Body']
+    },
+    {
+      id: 15,
+      title: 'Meditação Elite - Mente Zen',
+      description: 'Baseado em Mindfulness Research e Buddhist Psychology',
+      duration: '21 dias',
+      modules: 21,
+      level: 'Todos os níveis',
+      thumbnail: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Mindfulness',
+      instructor: 'Mestre Zen Elite',
+      rating: 4.8,
+      students: 15200,
+      preview: 'Vídeo de abertura: "Paz Interior Elite" - Meditação transformadora',
+      bookRecommendations: ['Wherever You Go, There You Are', 'The Power of Now', '10% Happier']
+    },
+    {
+      id: 16,
+      title: 'Fotografia Elite - Arte Visual',
+      description: 'Baseado em National Geographic e Magnum Photos techniques',
+      duration: '45 dias',
+      modules: 28,
+      level: 'Iniciante a Avançado',
+      thumbnail: 'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Arte',
+      instructor: 'Fotógrafo Elite Pro',
+      rating: 4.7,
+      students: 6500,
+      preview: 'Vídeo de abertura: "Olhar Elite" - Capturando momentos únicos',
+      bookRecommendations: ['Understanding Exposure', 'The Art of Photography', 'Magnum Contact Sheets']
+    },
+    {
+      id: 17,
+      title: 'Culinária Elite - Chef Profissional',
+      description: 'Baseado em Le Cordon Bleu e Culinary Institute of America',
+      duration: '50 dias',
+      modules: 35,
+      level: 'Iniciante a Avançado',
+      thumbnail: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Culinária',
+      instructor: 'Chef Elite Master',
+      rating: 4.9,
+      students: 8900,
+      preview: 'Vídeo de abertura: "Sabores Elite" - Culinária de alto nível',
+      bookRecommendations: ['On Food and Cooking', 'The Professional Chef', 'Salt Fat Acid Heat']
+    },
+    {
+      id: 18,
+      title: 'Design Elite - Criatividade Visual',
+      description: 'Baseado em IDEO Design Thinking e Bauhaus principles',
+      duration: '40 dias',
+      modules: 24,
+      level: 'Intermediário',
+      thumbnail: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Design',
+      instructor: 'Designer Elite Pro',
+      rating: 4.8,
+      students: 7200,
+      preview: 'Vídeo de abertura: "Visão Elite" - Design que impacta',
+      bookRecommendations: ['The Design of Everyday Things', 'Thinking with Type', 'Universal Principles of Design']
+    },
+    {
+      id: 19,
+      title: 'Programação Elite - Código Profissional',
+      description: 'Baseado em MIT Computer Science e Google Engineering',
+      duration: '90 dias',
+      modules: 45,
+      level: 'Iniciante a Avançado',
+      thumbnail: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Tecnologia',
+      instructor: 'Dev Elite Master',
+      rating: 4.9,
+      students: 11500,
+      preview: 'Vídeo de abertura: "Código Elite" - Programação de alto nível',
+      bookRecommendations: ['Clean Code', 'The Pragmatic Programmer', 'Design Patterns']
+    },
+    {
+      id: 20,
+      title: 'Música Elite - Composição Profissional',
+      description: 'Baseado em Berklee College of Music e Juilliard School',
+      duration: '60 dias',
+      modules: 30,
+      level: 'Intermediário',
+      thumbnail: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Música',
+      instructor: 'Maestro Elite',
+      rating: 4.8,
+      students: 5800,
+      preview: 'Vídeo de abertura: "Harmonia Elite" - Música que emociona',
+      bookRecommendations: ['How Music Works', 'The Jazz Theory Book', 'Composing Music']
+    },
+    {
+      id: 21,
+      title: 'Escrita Elite - Storytelling Magnético',
+      description: 'Baseado em Columbia Journalism e Harvard Writing',
+      duration: '35 dias',
+      modules: 20,
+      level: 'Todos os níveis',
+      thumbnail: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Escrita',
+      instructor: 'Escritor Elite Pro',
+      rating: 4.7,
+      students: 9800,
+      preview: 'Vídeo de abertura: "Palavras Elite" - Escrita que transforma',
+      bookRecommendations: ['On Writing', 'Bird by Bird', 'The Elements of Style']
+    },
+    {
+      id: 22,
+      title: 'Imóveis Elite - Investimento Inteligente',
+      description: 'Baseado em Real Estate Investment Trusts e Property Analysis',
+      duration: '45 dias',
+      modules: 25,
+      level: 'Intermediário',
+      thumbnail: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Imóveis',
+      instructor: 'Corretor Elite Master',
+      rating: 4.8,
+      students: 6700,
+      preview: 'Vídeo de abertura: "Patrimônio Elite" - Riqueza através de imóveis',
+      bookRecommendations: ['Rich Dad Poor Dad', 'The Millionaire Real Estate Investor', 'Real Estate Investing']
+    },
+    {
+      id: 23,
+      title: 'Automação Elite - Sistemas Inteligentes',
+      description: 'Baseado em MIT Automation Lab e Industry 4.0 principles',
+      duration: '40 dias',
+      modules: 22,
+      level: 'Avançado',
+      thumbnail: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Automação',
+      instructor: 'Automation Elite Pro',
+      rating: 4.9,
+      students: 4200,
+      preview: 'Vídeo de abertura: "Futuro Elite" - Automação que liberta',
+      bookRecommendations: ['The Second Machine Age', 'Automate This', 'The Fourth Industrial Revolution']
+    },
+    {
+      id: 24,
+      title: 'Psicologia Elite - Mente Humana',
+      description: 'Baseado em Stanford Psychology e Harvard Behavioral Science',
+      duration: '50 dias',
+      modules: 30,
+      level: 'Intermediário',
+      thumbnail: 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Psicologia',
+      instructor: 'Psicólogo Elite PhD',
+      rating: 4.8,
+      students: 8900,
+      preview: 'Vídeo de abertura: "Mente Elite" - Compreendendo o comportamento',
+      bookRecommendations: ['Thinking, Fast and Slow', 'Influence', 'The Social Animal']
+    },
+    {
+      id: 25,
+      title: 'Idiomas Elite - Fluência Acelerada',
+      description: 'Baseado em Polyglot Institute e Language Acquisition Research',
+      duration: '120 dias',
+      modules: 60,
+      level: 'Todos os níveis',
+      thumbnail: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Idiomas',
+      instructor: 'Poliglota Elite',
+      rating: 4.7,
+      students: 12300,
+      preview: 'Vídeo de abertura: "Fluência Elite" - Dominando idiomas rapidamente',
+      bookRecommendations: ['Fluent Forever', 'The Polyglot Project', 'How to Learn Any Language']
+    },
+    {
+      id: 26,
+      title: 'Viagem Elite - Nomadismo Digital',
+      description: 'Baseado em Digital Nomad Community e Travel Hacking',
+      duration: '30 dias',
+      modules: 18,
+      level: 'Todos os níveis',
+      thumbnail: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Lifestyle',
+      instructor: 'Nômade Elite',
+      rating: 4.8,
+      students: 7500,
+      preview: 'Vídeo de abertura: "Liberdade Elite" - Trabalhando de qualquer lugar',
+      bookRecommendations: ['The 4-Hour Workweek', 'Remote', 'Digital Nomad Handbook']
+    },
+    {
+      id: 27,
+      title: 'Sustentabilidade Elite - Futuro Verde',
+      description: 'Baseado em MIT Sustainability Lab e UN Environmental Goals',
+      duration: '35 dias',
+      modules: 20,
+      level: 'Todos os níveis',
+      thumbnail: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Sustentabilidade',
+      instructor: 'Eco Elite Master',
+      rating: 4.9,
+      students: 5600,
+      preview: 'Vídeo de abertura: "Planeta Elite" - Sustentabilidade lucrativa',
+      bookRecommendations: ['Cradle to Cradle', 'The Sixth Extinction', 'Biomimicry']
+    },
+    {
+      id: 28,
+      title: 'Moda Elite - Estilo Pessoal',
+      description: 'Baseado em Parsons School of Design e Fashion Institute',
+      duration: '25 dias',
+      modules: 15,
+      level: 'Todos os níveis',
+      thumbnail: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Moda',
+      instructor: 'Stylist Elite',
+      rating: 4.7,
+      students: 8200,
+      preview: 'Vídeo de abertura: "Estilo Elite" - Imagem que impacta',
+      bookRecommendations: ['The Little Black Book of Style', 'Style and the Man', 'Dress for Success']
+    },
+    {
+      id: 29,
+      title: 'Esportes Elite - Performance Máxima',
+      description: 'Baseado em Olympic Training Center e Sports Science Institute',
+      duration: '60 dias',
+      modules: 35,
+      level: 'Intermediário a Avançado',
+      thumbnail: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Esportes',
+      instructor: 'Atleta Elite Pro',
+      rating: 4.9,
+      students: 9500,
+      preview: 'Vídeo de abertura: "Campeão Elite" - Performance de atleta',
+      bookRecommendations: ['Peak Performance', 'The Champion\'s Mind', 'Mindset of a Champion']
+    },
+    {
+      id: 30,
+      title: 'Parentalidade Elite - Educação Transformadora',
+      description: 'Baseado em Child Development Research e Montessori Method',
+      duration: '40 dias',
+      modules: 24,
+      level: 'Todos os níveis',
+      thumbnail: 'https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Família',
+      instructor: 'Educador Elite',
+      rating: 4.8,
+      students: 11200,
+      preview: 'Vídeo de abertura: "Filhos Elite" - Educação que transforma',
+      bookRecommendations: ['The Whole-Brain Child', 'How to Talk So Kids Will Listen', 'Montessori Method']
+    },
+    {
+      id: 31,
+      title: 'Envelhecimento Elite - Longevidade Ativa',
+      description: 'Baseado em Harvard Longevity Research e Blue Zones studies',
+      duration: '45 dias',
+      modules: 25,
+      level: 'Todos os níveis',
+      thumbnail: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Longevidade',
+      instructor: 'Dr. Longevidade Elite',
+      rating: 4.9,
+      students: 6800,
+      preview: 'Vídeo de abertura: "Juventude Elite" - Envelhecendo com saúde',
+      bookRecommendations: ['The Blue Zones', 'Lifespan', 'Healthy Aging']
+    },
+    {
+      id: 32,
+      title: 'Terapia Elite - Bem-estar Mental',
+      description: 'Baseado em Cognitive Behavioral Therapy e Positive Psychology',
+      duration: '35 dias',
+      modules: 20,
+      level: 'Todos os níveis',
+      thumbnail: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Terapia',
+      instructor: 'Terapeuta Elite',
+      rating: 4.8,
+      students: 7900,
+      preview: 'Vídeo de abertura: "Cura Elite" - Saúde mental em primeiro lugar',
+      bookRecommendations: ['Feeling Good', 'The Happiness Hypothesis', 'Man\'s Search for Meaning']
+    },
+    {
+      id: 33,
+      title: 'Energia Elite - Vitalidade Total',
+      description: 'Baseado em Mitochondrial Research e Energy Medicine',
+      duration: '30 dias',
+      modules: 18,
+      level: 'Todos os níveis',
+      thumbnail: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Energia',
+      instructor: 'Energy Elite Master',
+      rating: 4.7,
+      students: 8700,
+      preview: 'Vídeo de abertura: "Energia Elite" - Vitalidade sem limites',
+      bookRecommendations: ['The Energy Bus', 'Power vs. Force', 'The Body Electric']
+    },
+    {
+      id: 34,
+      title: 'Sono Elite - Recuperação Profunda',
+      description: 'Baseado em Sleep Research Institute e Circadian Biology',
+      duration: '21 dias',
+      modules: 14,
+      level: 'Todos os níveis',
+      thumbnail: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Sono',
+      instructor: 'Sleep Elite Doctor',
+      rating: 4.9,
+      students: 10200,
+      preview: 'Vídeo de abertura: "Sono Elite" - Recuperação que transforma',
+      bookRecommendations: ['Why We Sleep', 'The Sleep Solution', 'Sleep Smarter']
+    },
+    {
+      id: 35,
+      title: 'Memória Elite - Mente Fotográfica',
+      description: 'Baseado em Memory Palace techniques e Neuroscience Research',
+      duration: '28 dias',
+      modules: 16,
+      level: 'Todos os níveis',
+      thumbnail: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Memória',
+      instructor: 'Memory Elite Champion',
+      rating: 4.8,
+      students: 9100,
+      preview: 'Vídeo de abertura: "Memória Elite" - Nunca mais esqueça',
+      bookRecommendations: ['Moonwalking with Einstein', 'The Art of Memory', 'Peak']
+    },
+    {
+      id: 36,
+      title: 'Criatividade Elite - Inovação Constante',
+      description: 'Baseado em IDEO Innovation Lab e Creative Thinking Research',
+      duration: '35 dias',
+      modules: 20,
+      level: 'Todos os níveis',
+      thumbnail: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Criatividade',
+      instructor: 'Creative Elite Genius',
+      rating: 4.7,
+      students: 7400,
+      preview: 'Vídeo de abertura: "Criatividade Elite" - Inovação sem limites',
+      bookRecommendations: ['The Creative Act', 'Big Magic', 'Steal Like an Artist']
+    },
+    {
+      id: 37,
+      title: 'Negociação Elite - Acordos Vencedores',
+      description: 'Baseado em Harvard Negotiation Project e FBI Negotiation',
+      duration: '30 dias',
+      modules: 18,
+      level: 'Intermediário',
+      thumbnail: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Negociação',
+      instructor: 'Negotiator Elite Pro',
+      rating: 4.9,
+      students: 6300,
+      preview: 'Vídeo de abertura: "Negociação Elite" - Sempre saia ganhando',
+      bookRecommendations: ['Getting to Yes', 'Never Split the Difference', 'The Art of the Deal']
+    },
+    {
+      id: 38,
+      title: 'Disciplina Elite - Autocontrole Total',
+      description: 'Baseado em Willpower Research e Self-Control Studies',
+      duration: '40 dias',
+      modules: 22,
+      level: 'Todos os níveis',
+      thumbnail: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Disciplina',
+      instructor: 'Discipline Elite Master',
+      rating: 4.8,
+      students: 11800,
+      preview: 'Vídeo de abertura: "Disciplina Elite" - Autocontrole inquebrantável',
+      bookRecommendations: ['Willpower', 'The Power of Habit', 'Discipline Equals Freedom']
+    },
+    {
+      id: 39,
+      title: 'Intuição Elite - Sexto Sentido',
+      description: 'Baseado em Intuitive Decision Making e Neuroscience of Gut Feelings',
+      duration: '25 dias',
+      modules: 15,
+      level: 'Todos os níveis',
+      thumbnail: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Intuição',
+      instructor: 'Intuition Elite Guide',
+      rating: 4.7,
+      students: 5900,
+      preview: 'Vídeo de abertura: "Intuição Elite" - Confie no seu instinto',
+      bookRecommendations: ['Blink', 'The Gift of Fear', 'Intuition']
+    },
+    {
+      id: 40,
+      title: 'Propósito Elite - Missão de Vida',
+      description: 'Baseado em Existential Psychology e Purpose-Driven Life Research',
+      duration: '50 dias',
+      modules: 30,
+      level: 'Todos os níveis',
+      thumbnail: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
+      locked: true,
+      category: 'Propósito',
+      instructor: 'Purpose Elite Coach',
+      rating: 4.9,
+      students: 8600,
+      preview: 'Vídeo de abertura: "Propósito Elite" - Encontre sua missão',
+      bookRecommendations: ['Man\'s Search for Meaning', 'The Purpose Driven Life', 'Drive']
     }
   ]
 
@@ -397,8 +956,9 @@ export default function EliteLifePresentation() {
   }
 
   const handleFreeTest = () => {
-    setShowBasicAgenda(true)
-    setCurrentView('agenda')
+    // Ir direto para planos em vez de cursos
+    setShowPreview(true)
+    setSelectedPlan('Teste Grátis')
   }
 
   const handlePurchase = () => {
@@ -425,7 +985,7 @@ export default function EliteLifePresentation() {
     setChatMessages(prev => [...prev, { type: 'user', message: userMessage }])
     setChatInput('')
     
-    // IA avançada com conhecimento completo da plataforma
+    // IA avançada melhorada com conhecimento completo da plataforma
     setTimeout(() => {
       let aiResponse = ''
       const message = userMessage.toLowerCase()
@@ -441,19 +1001,23 @@ export default function EliteLifePresentation() {
       } else if (message.includes('afiliado') || message.includes('ganhar') || message.includes('comissão') || message.includes('cupom')) {
         aiResponse = 'Como afiliado Elite, você ganha 20% na primeira venda e 15% recorrente! Pode gerar 1 cupom único de 5% (você não pode usar o seu próprio). Nosso novo bônus Elite é R$ 250 quando você vender R$ 3.500! Temos materiais profissionais, treinamento completo e saque via PIX. Nossos top afiliados faturam R$ 15k-50k/mês. O ranking mostra os melhores performers. Quer que eu te explique o sistema completo?'
       } else if (message.includes('curso') || message.includes('trilha') || message.includes('video')) {
-        aiResponse = 'Temos 9 trilhas principais: Corpo de Elite, Mente Milionária, Fortuna Digital, Networking Elite, Produtividade Máxima, Liderança Executiva, E-commerce Master, Influencer Elite e Nutrição Elite. Cada curso tem vídeos de abertura gerados por IA com nossa logo e música inspiracional. Todos baseados nos melhores estudos do mundo (Harvard, Stanford, MIT, etc.). Qual área te interessa mais?'
+        aiResponse = 'Temos 40 trilhas completas: Corpo de Elite, Mente Milionária, Fortuna Digital, Networking Elite, Produtividade Máxima, Liderança Executiva, E-commerce Master, Influencer Elite, Nutrição Elite, Criptomoedas, Oratória, Relacionamentos, Vendas, Yoga, Meditação, Fotografia, Culinária, Design, Programação, Música, Escrita, Imóveis, Automação, Psicologia, Idiomas, Viagem, Sustentabilidade, Moda, Esportes, Parentalidade, Longevidade, Terapia, Energia, Sono, Memória, Criatividade, Negociação, Disciplina, Intuição e Propósito. Cada curso tem vídeos de abertura gerados por IA com nossa logo e música inspiracional. Todos baseados nos melhores estudos do mundo (Harvard, Stanford, MIT, etc.). Qual área te interessa mais?'
       } else if (message.includes('comunidade') || message.includes('chat') || message.includes('outros')) {
-        aiResponse = 'Nossa comunidade VIP tem chat integrado onde membros compartilham resultados reais! Você pode postar seu progresso, ver transformações de outros membros, trocar dicas e se motivar. Temos mais de 50.000 membros ativos. O ambiente é super positivo e inspirador. Quer que eu te mostre como acessar?'
+        aiResponse = 'Nossa comunidade VIP tem chat integrado onde membros compartilham resultados reais! Você pode postar seu progresso, ver transformações de outros membros, trocar dicas e se motivar. Temos mais de 75.000 membros ativos. O ambiente é super positivo e inspirador. Quer que eu te mostre como acessar?'
       } else if (message.includes('planilha') || message.includes('imprimir') || message.includes('atividade') || message.includes('pdf')) {
         aiResponse = 'Temos planilhas exclusivas para imprimir sobre: Finanças (controle de gastos, metas de investimento), Saúde (acompanhamento médico, exames), Cuidado Pessoal (rotina de beleza, autocuidado) e Fitness (treinos, medidas corporais). Todas são profissionais e podem ser baixadas em PDF. Quer que eu te mostre todas disponíveis?'
       } else if (message.includes('ranking') || message.includes('medalha') || message.includes('nível')) {
         aiResponse = 'Temos um sistema de medalhas e ranking completo! Você ganha pontos por atividades concluídas e sobe de nível (Bronze, Prata, Ouro, Platina, Diamond Elite). O ranking de afiliados mostra os top performers em tempo real. Sua medalha atual aparece no seu perfil. Quanto mais ativo, maior seu status na comunidade!'
       } else if (message.includes('plano') || message.includes('preço') || message.includes('assinar')) {
-        aiResponse = 'Temos 4 planos: Starter (GRÁTIS), PRO Elite (R$ 39,90/mês), Anual VIP (R$ 299/ano - 4 meses grátis), PRO Plus Elite (R$ 79,90/mês) e o novo Influencer Hub (R$ 49,90/mês) com IA viral e calendários fitness/nutrição. Todos com garantia de resultados. Qual se encaixa melhor no seu perfil?'
+        aiResponse = 'Temos 5 planos: Starter (GRÁTIS - acesso básico), PRO Elite (R$ 49,90/mês), Anual VIP (R$ 329,90/ano - economia de 4 meses), Influencer Hub (R$ 119,90/mês - com IA viral) e PRO Plus Elite (R$ 79,90/mês - tudo incluído). Todos com carteira inteligente e garantia de resultados. Qual se encaixa melhor no seu perfil?'
       } else if (message.includes('garantia') || message.includes('dinheiro de volta')) {
         aiResponse = 'Temos garantia de 30 dias ou dinheiro de volta! Se você não ver resultados reais seguindo nosso método, devolvemos 100% do valor. Nossa taxa de sucesso é de 98% - confiamos totalmente no sistema. Além disso, temos suporte 24/7 para garantir seu sucesso!'
+      } else if (message.includes('básico') || message.includes('teste grátis') || message.includes('gratuito')) {
+        aiResponse = 'No plano básico você tem: agenda editável com limitações (sem IA), acesso a 1 curso completo, controle de nutrição diário (água, calorias, etc), 1 relatório nutricional, suporte AI básico, e pode gerar 1 cupom de afiliado. É perfeito para conhecer a plataforma! Depois aparece a opção de assinar para ter acesso completo.'
+      } else if (message.includes('idioma') || message.includes('língua') || message.includes('traduzir')) {
+        aiResponse = 'O EliteLife está disponível em múltiplos idiomas: Português, Inglês, Espanhol e Francês! Você pode mudar o idioma a qualquer momento clicando no ícone de idiomas no menu. Todos os cursos, interface e conteúdos são traduzidos profissionalmente. Isso permite que pessoas do mundo todo tenham acesso à transformação Elite!'
       } else {
-        aiResponse = 'Como seu Coach IA Elite avançado, posso te ajudar com: todas as 9 trilhas de cursos, agenda inteligente editável, sistema de nutrição com tracker, e-commerce completo (Mercado Livre, Amazon, etc.), marketing de influencer com IA viral, programa de afiliados, comunidade VIP, planilhas para imprimir, ranking e medalhas, e muito mais! Seja mais específico sobre o que precisa e vou te dar uma resposta detalhada!'
+        aiResponse = 'Como seu Coach IA Elite avançado, posso te ajudar com: todas as 40 trilhas de cursos, agenda inteligente editável, sistema de nutrição com tracker, e-commerce completo (Mercado Livre, Amazon, etc.), marketing de influencer com IA viral, programa de afiliados, comunidade VIP, planilhas para imprimir, ranking e medalhas, carteira inteligente, suporte multilíngue e muito mais! Seja mais específico sobre o que precisa e vou te dar uma resposta detalhada!'
       }
       
       setChatMessages(prev => [...prev, { type: 'ai', message: aiResponse }])
@@ -721,34 +1285,25 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                   />
                 </div>
                 
+                {/* Opções de Pagamento */}
                 <div>
-                  <label className="block text-white font-semibold mb-2">Número do Cartão</label>
-                  <input
-                    type="text"
-                    required
-                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400"
-                    placeholder="1234 5678 9012 3456"
-                  />
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-white font-semibold mb-2">Validade</label>
-                    <input
-                      type="text"
-                      required
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400"
-                      placeholder="MM/AA"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-white font-semibold mb-2">CVV</label>
-                    <input
-                      type="text"
-                      required
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400"
-                      placeholder="123"
-                    />
+                  <label className="block text-white font-semibold mb-4">Forma de Pagamento</label>
+                  <div className="space-y-3">
+                    <label className="flex items-center space-x-3 bg-white/5 rounded-xl p-4 cursor-pointer hover:bg-white/10 transition-colors">
+                      <input type="radio" name="payment" value="pix" className="w-4 h-4" defaultChecked />
+                      <span className="text-white font-semibold">PIX</span>
+                      <span className="text-green-400 text-sm ml-auto">Aprovação instantânea</span>
+                    </label>
+                    <label className="flex items-center space-x-3 bg-white/5 rounded-xl p-4 cursor-pointer hover:bg-white/10 transition-colors">
+                      <input type="radio" name="payment" value="credit" className="w-4 h-4" />
+                      <span className="text-white font-semibold">Cartão de Crédito</span>
+                      <span className="text-blue-400 text-sm ml-auto">Parcelamento disponível</span>
+                    </label>
+                    <label className="flex items-center space-x-3 bg-white/5 rounded-xl p-4 cursor-pointer hover:bg-white/10 transition-colors">
+                      <input type="radio" name="payment" value="debit" className="w-4 h-4" />
+                      <span className="text-white font-semibold">Cartão de Débito</span>
+                      <span className="text-purple-400 text-sm ml-auto">Desconto à vista</span>
+                    </label>
                   </div>
                 </div>
                 
@@ -772,22 +1327,22 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                 <div className="flex justify-between">
                   <span className="text-gray-300">Plano {selectedPlan}</span>
                   <span className="text-white font-bold">
-                    {selectedPlan === 'PRO Elite' ? 'R$ 39,90' : 
-                     selectedPlan === 'Anual VIP' ? 'R$ 299,00' : 
-                     selectedPlan === 'Influencer Hub' ? 'R$ 49,90' : 'R$ 79,90'}
+                    {selectedPlan === 'PRO Elite' ? 'R$ 49,90' : 
+                     selectedPlan === 'Anual VIP' ? 'R$ 329,90' : 
+                     selectedPlan === 'Influencer Hub' ? 'R$ 119,90' : 'R$ 79,90'}
                   </span>
                 </div>
                 <div className="flex justify-between text-green-400">
                   <span>Desconto (5%)</span>
-                  <span>- R$ 2,00</span>
+                  <span>- R$ 2,50</span>
                 </div>
                 <div className="border-t border-white/20 pt-4">
                   <div className="flex justify-between text-xl font-bold">
                     <span className="text-white">Total</span>
                     <span className="text-green-400">
-                      {selectedPlan === 'PRO Elite' ? 'R$ 37,90' : 
-                       selectedPlan === 'Anual VIP' ? 'R$ 284,05' : 
-                       selectedPlan === 'Influencer Hub' ? 'R$ 47,40' : 'R$ 75,90'}
+                      {selectedPlan === 'PRO Elite' ? 'R$ 47,40' : 
+                       selectedPlan === 'Anual VIP' ? 'R$ 313,40' : 
+                       selectedPlan === 'Influencer Hub' ? 'R$ 113,90' : 'R$ 75,90'}
                     </span>
                   </div>
                 </div>
@@ -804,7 +1359,8 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                   onClick={() => setShowPayment(false)}
                   className="w-full bg-gray-600 text-white font-bold py-3 rounded-2xl hover:bg-gray-500 transition-all duration-300"
                 >
-                  Voltar
+                  <Home className="w-4 h-4 inline mr-2" />
+                  Voltar ao Início
                 </button>
               </div>
               
@@ -846,7 +1402,7 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                 }`}
               >
                 <Home className="w-4 h-4" />
-                <span>Início</span>
+                <span>{t.home}</span>
               </button>
               <button
                 onClick={() => setCurrentView('courses')}
@@ -855,7 +1411,7 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                 }`}
               >
                 <BookOpen className="w-4 h-4" />
-                <span>Cursos</span>
+                <span>{t.courses}</span>
               </button>
               <button
                 onClick={() => setCurrentView('agenda')}
@@ -864,7 +1420,7 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                 }`}
               >
                 <Calendar className="w-4 h-4" />
-                <span>Agenda</span>
+                <span>{t.agenda}</span>
               </button>
               <button
                 onClick={() => setCurrentView('nutrition')}
@@ -873,7 +1429,25 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                 }`}
               >
                 <Apple className="w-4 h-4" />
-                <span>Nutrição</span>
+                <span>{t.nutrition}</span>
+              </button>
+              <button
+                onClick={() => setCurrentView('ecommerce')}
+                className={`flex items-center space-x-2 px-4 py-2 rounded-xl transition-all ${
+                  currentView === 'ecommerce' ? 'bg-yellow-500/20 text-yellow-400' : 'text-gray-300 hover:text-white'
+                }`}
+              >
+                <ShoppingCart className="w-4 h-4" />
+                <span>E-commerce</span>
+              </button>
+              <button
+                onClick={() => setCurrentView('influencer')}
+                className={`flex items-center space-x-2 px-4 py-2 rounded-xl transition-all ${
+                  currentView === 'influencer' ? 'bg-yellow-500/20 text-yellow-400' : 'text-gray-300 hover:text-white'
+                }`}
+              >
+                <Megaphone className="w-4 h-4" />
+                <span>Influencer</span>
               </button>
               <button
                 onClick={() => setCurrentView('wallet')}
@@ -882,12 +1456,54 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                 }`}
               >
                 <Wallet className="w-4 h-4" />
-                <span>Carteira</span>
+                <span>{t.wallet}</span>
               </button>
             </nav>
             
-            {/* Perfil do Usuário */}
+            {/* Seletor de Idioma */}
             <div className="flex items-center space-x-4">
+              <div className="relative">
+                <button
+                  onClick={() => setShowLanguageMenu(!showLanguageMenu)}
+                  className="flex items-center space-x-2 bg-white/10 rounded-xl px-3 py-2 hover:bg-white/20 transition-all"
+                >
+                  <Languages className="w-4 h-4 text-gray-400" />
+                  <span className="text-white text-sm font-semibold">
+                    {currentLanguage.toUpperCase()}
+                  </span>
+                </button>
+                
+                {showLanguageMenu && (
+                  <div className="absolute right-0 top-full mt-2 w-40 bg-black/90 backdrop-blur-sm rounded-2xl border border-white/20 shadow-2xl z-50">
+                    <div className="p-2">
+                      {[
+                        { code: 'pt', name: 'Português', flag: '🇧🇷' },
+                        { code: 'en', name: 'English', flag: '🇺🇸' },
+                        { code: 'es', name: 'Español', flag: '🇪🇸' },
+                        { code: 'fr', name: 'Français', flag: '🇫🇷' }
+                      ].map((lang) => (
+                        <button
+                          key={lang.code}
+                          onClick={() => {
+                            setCurrentLanguage(lang.code)
+                            setShowLanguageMenu(false)
+                          }}
+                          className={`w-full flex items-center space-x-2 px-3 py-2 rounded-xl transition-all ${
+                            currentLanguage === lang.code 
+                              ? 'bg-yellow-500/20 text-yellow-400' 
+                              : 'text-gray-300 hover:text-white hover:bg-white/10'
+                          }`}
+                        >
+                          <span>{lang.flag}</span>
+                          <span className="text-sm">{lang.name}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+              
+              {/* Perfil do Usuário */}
               <div className="relative">
                 <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
@@ -971,469 +1587,12 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
 
         {/* Conteúdo Principal */}
         <main className="container mx-auto p-6">
-          {/* Tracker de Nutrição */}
-          {currentView === 'nutrition' && (
-            <div>
-              <div className="text-center mb-8">
-                <h1 className="text-4xl font-bold text-white mb-4">🍎 Nutrição Elite Inteligente</h1>
-                <p className="text-gray-300">Planejamento nutricional avançado baseado nos melhores nutricionistas do mundo</p>
-              </div>
-              
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                {/* Tracker Diário */}
-                <div className="bg-black/40 backdrop-blur-sm rounded-3xl p-6 border border-blue-500/30">
-                  <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
-                    <Activity className="w-6 h-6 text-blue-400 mr-2" />
-                    Tracker Diário
-                  </h2>
-                  
-                  <div className="space-y-4">
-                    {[
-                      { key: 'water', icon: Droplets, label: 'Água (ml)', color: 'blue', unit: 'ml' },
-                      { key: 'calories', icon: Flame, label: 'Calorias', color: 'red', unit: 'kcal' },
-                      { key: 'protein', icon: Beef, label: 'Proteínas (g)', color: 'purple', unit: 'g' },
-                      { key: 'carbs', icon: Wheat, label: 'Carboidratos (g)', color: 'yellow', unit: 'g' },
-                      { key: 'fiber', icon: Salad, label: 'Fibras (g)', color: 'green', unit: 'g' },
-                      { key: 'exercise', icon: Dumbbell, label: 'Exercício (min)', color: 'orange', unit: 'min' }
-                    ].map((item) => (
-                      <div key={item.key} className="bg-white/5 rounded-xl p-4">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex items-center">
-                            <item.icon className={`w-5 h-5 text-${item.color}-400 mr-2`} />
-                            <span className="text-white font-semibold text-sm">{item.label}</span>
-                          </div>
-                          <span className={`text-${item.color}-400 font-bold`}>
-                            {dailyNutrition[item.key as keyof typeof dailyNutrition]}/{nutritionGoals[item.key as keyof typeof nutritionGoals]} {item.unit}
-                          </span>
-                        </div>
-                        
-                        <div className="w-full bg-gray-700 rounded-full h-2 mb-3">
-                          <div 
-                            className={`bg-${item.color}-400 h-2 rounded-full transition-all duration-300`}
-                            style={{ 
-                              width: `${Math.min(100, (dailyNutrition[item.key as keyof typeof dailyNutrition] / nutritionGoals[item.key as keyof typeof nutritionGoals]) * 100)}%` 
-                            }}
-                          ></div>
-                        </div>
-                        
-                        <div className="flex space-x-2">
-                          <button
-                            onClick={() => updateNutrition(item.key, item.key === 'water' ? 250 : item.key === 'calories' ? 100 : item.key === 'exercise' ? 15 : 10)}
-                            className={`flex-1 bg-${item.color}-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-${item.color}-400 transition-colors`}
-                          >
-                            + {item.key === 'water' ? '250ml' : item.key === 'calories' ? '100kcal' : item.key === 'exercise' ? '15min' : '10g'}
-                          </button>
-                          <button
-                            onClick={() => updateNutrition(item.key, -(item.key === 'water' ? 250 : item.key === 'calories' ? 100 : item.key === 'exercise' ? 15 : 10))}
-                            className="bg-gray-600 text-white px-3 py-1 rounded-lg text-sm hover:bg-gray-500 transition-colors"
-                          >
-                            -
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
-                {/* Plano Nutricional */}
-                <div className="bg-black/40 backdrop-blur-sm rounded-3xl p-6 border border-green-500/30">
-                  <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
-                    <Apple className="w-6 h-6 text-green-400 mr-2" />
-                    Plano Personalizado
-                  </h2>
-                  
-                  <div className="space-y-4">
-                    <div className="bg-green-500/20 rounded-xl p-4 border border-green-500/30">
-                      <h3 className="text-green-400 font-bold mb-2">🎯 Suas Metas Diárias</h3>
-                      <div className="space-y-2 text-sm">
-                        <p className="text-gray-300">💧 Água: {nutritionGoals.water}ml</p>
-                        <p className="text-gray-300">🔥 Calorias: {nutritionGoals.calories}kcal</p>
-                        <p className="text-gray-300">🥩 Proteínas: {nutritionGoals.protein}g</p>
-                        <p className="text-gray-300">🌾 Carboidratos: {nutritionGoals.carbs}g</p>
-                        <p className="text-gray-300">🥬 Fibras: {nutritionGoals.fiber}g</p>
-                        <p className="text-gray-300">💪 Exercício: {nutritionGoals.exercise}min</p>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-yellow-500/20 rounded-xl p-4 border border-yellow-500/30">
-                      <h3 className="text-yellow-400 font-bold mb-2">📋 Refeições Sugeridas</h3>
-                      <div className="space-y-2 text-sm text-gray-300">
-                        <p><strong>Café:</strong> Ovos + Aveia + Frutas</p>
-                        <p><strong>Almoço:</strong> Frango + Arroz + Salada</p>
-                        <p><strong>Lanche:</strong> Whey + Banana</p>
-                        <p><strong>Jantar:</strong> Peixe + Batata + Vegetais</p>
-                      </div>
-                    </div>
-                    
-                    <button
-                      onClick={generateWeeklyReport}
-                      className="w-full bg-gradient-to-r from-green-400 to-emerald-500 text-black font-bold py-3 rounded-2xl hover:scale-105 transition-all duration-300"
-                    >
-                      📊 GERAR RELATÓRIO SEMANAL
-                    </button>
-                  </div>
-                </div>
-                
-                {/* Relatório Semanal */}
-                <div className="bg-black/40 backdrop-blur-sm rounded-3xl p-6 border border-purple-500/30">
-                  <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
-                    <BarChart3 className="w-6 h-6 text-purple-400 mr-2" />
-                    Relatório Profissional
-                  </h2>
-                  
-                  {weeklyReport ? (
-                    <div className="bg-purple-500/20 rounded-xl p-4 border border-purple-500/30 max-h-96 overflow-y-auto">
-                      <pre className="text-xs text-gray-300 whitespace-pre-wrap">{weeklyReport}</pre>
-                    </div>
-                  ) : (
-                    <div className="text-center py-8">
-                      <PieChart className="w-16 h-16 text-purple-400 mx-auto mb-4" />
-                      <p className="text-gray-300 mb-4">Complete uma semana de tracking para gerar seu relatório profissional</p>
-                      <div className="space-y-2 text-sm text-gray-400">
-                        <p>✅ Análise completa dos nutrientes</p>
-                        <p>✅ Recomendações personalizadas</p>
-                        <p>✅ Metas para próxima semana</p>
-                        <p>✅ Insights baseados em IA</p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-              
-              {/* Quiz Nutricional Avançado */}
-              <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-3xl p-8 border border-blue-500/30">
-                <h2 className="text-3xl font-bold text-white mb-6 text-center">🧬 Quiz Nutricional Elite</h2>
-                <p className="text-gray-300 text-center mb-8">Baseado nos melhores nutricionistas do mundo: Harvard T.H. Chan, Mayo Clinic, Johns Hopkins</p>
-                
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-bold text-blue-400">Perguntas Avançadas:</h3>
-                    <div className="space-y-3 text-sm text-gray-300">
-                      <p>• Qual seu tipo metabólico predominante?</p>
-                      <p>• Você tem intolerâncias alimentares?</p>
-                      <p>• Qual seu nível de atividade física?</p>
-                      <p>• Objetivos: emagrecimento, ganho de massa ou manutenção?</p>
-                      <p>• Histórico familiar de doenças?</p>
-                      <p>• Preferências alimentares e restrições?</p>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-bold text-green-400">Resultado Personalizado:</h3>
-                    <div className="space-y-3 text-sm text-gray-300">
-                      <p>• Plano nutricional de 28 dias</p>
-                      <p>• Cálculo exato de macronutrientes</p>
-                      <p>• Lista de compras otimizada</p>
-                      <p>• Receitas personalizadas</p>
-                      <p>• Suplementação recomendada</p>
-                      <p>• Cronograma de refeições</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="text-center mt-8">
-                  <button
-                    onClick={() => alert('Quiz nutricional avançado em desenvolvimento! Em breve você terá acesso ao plano mais personalizado do mundo.')}
-                    className="bg-gradient-to-r from-blue-400 to-purple-500 text-white font-bold px-8 py-3 rounded-2xl hover:scale-105 transition-all duration-300"
-                  >
-                    FAZER QUIZ AVANÇADO
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Chat da Comunidade */}
-          {showCommunityChat && (
-            <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-              <div className="bg-black/90 rounded-3xl border border-yellow-500/30 w-full max-w-4xl h-[80vh] flex flex-col">
-                <div className="flex items-center justify-between p-6 border-b border-white/10">
-                  <h2 className="text-2xl font-bold text-white flex items-center">
-                    <Users className="w-6 h-6 text-yellow-400 mr-2" />
-                    Comunidade Elite - Chat de Resultados
-                  </h2>
-                  <button
-                    onClick={() => setShowCommunityChat(false)}
-                    className="text-gray-400 hover:text-white"
-                  >
-                    <X className="w-6 h-6" />
-                  </button>
-                </div>
-                
-                <div className="flex-1 overflow-y-auto p-6 space-y-4">
-                  {communityMessages.map((msg, index) => (
-                    <div key={index} className="bg-white/5 rounded-2xl p-4 border border-white/10">
-                      <div className="flex items-center space-x-3 mb-3">
-                        <img 
-                          src={msg.avatar} 
-                          alt={msg.user}
-                          className="w-10 h-10 rounded-full object-cover"
-                        />
-                        <div>
-                          <p className="text-white font-semibold">{msg.user}</p>
-                          <p className="text-gray-400 text-sm">{msg.time}</p>
-                        </div>
-                      </div>
-                      <p className="text-gray-300 mb-3">{msg.message}</p>
-                      <div className="flex items-center space-x-4">
-                        <button className="flex items-center space-x-1 text-red-400 hover:text-red-300">
-                          <Heart className="w-4 h-4" />
-                          <span className="text-sm">{msg.likes}</span>
-                        </button>
-                        <button className="text-gray-400 hover:text-white text-sm">
-                          Responder
-                        </button>
-                        <button className="text-gray-400 hover:text-white text-sm">
-                          Compartilhar
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                
-                <div className="p-6 border-t border-white/10">
-                  <div className="flex space-x-3">
-                    <input
-                      type="text"
-                      placeholder="Compartilhe seu progresso com a comunidade..."
-                      className="flex-1 bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400"
-                    />
-                    <button className="bg-yellow-500 text-black px-6 py-3 rounded-xl font-bold hover:bg-yellow-400 transition-colors">
-                      Postar
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Ranking de Afiliados */}
-          {showRanking && (
-            <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-              <div className="bg-black/90 rounded-3xl border border-yellow-500/30 w-full max-w-4xl max-h-[80vh] overflow-y-auto">
-                <div className="flex items-center justify-between p-6 border-b border-white/10">
-                  <h2 className="text-2xl font-bold text-white flex items-center">
-                    <Trophy className="w-6 h-6 text-yellow-400 mr-2" />
-                    Ranking Elite - Top Afiliados
-                  </h2>
-                  <button
-                    onClick={() => setShowRanking(false)}
-                    className="text-gray-400 hover:text-white"
-                  >
-                    <X className="w-6 h-6" />
-                  </button>
-                </div>
-                
-                <div className="p-6">
-                  <div className="space-y-4">
-                    {affiliateRanking.map((affiliate, index) => (
-                      <div key={index} className={`bg-white/5 rounded-2xl p-6 border ${
-                        index === 0 ? 'border-yellow-500/50 bg-yellow-500/10' :
-                        index === 1 ? 'border-gray-400/50 bg-gray-400/10' :
-                        index === 2 ? 'border-amber-600/50 bg-amber-600/10' :
-                        'border-white/10'
-                      }`}>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-4">
-                            <div className="relative">
-                              <img 
-                                src={affiliate.avatar} 
-                                alt={affiliate.name}
-                                className="w-16 h-16 rounded-full object-cover"
-                              />
-                              <div className={`absolute -top-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${
-                                index === 0 ? 'bg-yellow-500 text-black' :
-                                index === 1 ? 'bg-gray-400 text-black' :
-                                index === 2 ? 'bg-amber-600 text-white' :
-                                'bg-gray-600 text-white'
-                              }`}>
-                                {index + 1}
-                              </div>
-                            </div>
-                            <div>
-                              <p className="text-white font-bold text-lg">{affiliate.name}</p>
-                              <p className={`text-sm font-semibold ${
-                                affiliate.badge === 'Diamond Elite' ? 'text-yellow-400' :
-                                affiliate.badge === 'Gold Elite' ? 'text-yellow-300' :
-                                'text-gray-400'
-                              }`}>
-                                {affiliate.badge}
-                              </p>
-                              <p className="text-gray-400 text-sm">{affiliate.sales} vendas</p>
-                            </div>
-                          </div>
-                          
-                          <div className="text-right">
-                            <p className="text-green-400 font-bold text-xl">{affiliate.earnings}</p>
-                            <p className="text-gray-400 text-sm">Este mês</p>
-                          </div>
-                        </div>
-                        
-                        {index < 3 && (
-                          <div className="mt-4 flex items-center space-x-2">
-                            {index === 0 && <Crown className="w-5 h-5 text-yellow-500" />}
-                            {index === 1 && <Medal className="w-5 h-5 text-gray-400" />}
-                            {index === 2 && <Award className="w-5 h-5 text-amber-600" />}
-                            <span className="text-gray-300 text-sm">
-                              {index === 0 ? 'Rei dos Afiliados' :
-                               index === 1 ? 'Vice-Campeão' :
-                               'Terceiro Lugar'}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="mt-8 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-2xl p-6 border border-green-500/30">
-                    <h3 className="text-xl font-bold text-green-400 mb-4">🎯 Como Subir no Ranking</h3>
-                    <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-300">
-                      <div>
-                        <p>• Compartilhe seu cupom único</p>
-                        <p>• Use materiais profissionais</p>
-                        <p>• Poste resultados reais</p>
-                        <p>• Engaje com a comunidade</p>
-                      </div>
-                      <div>
-                        <p>• Faça lives sobre EliteLife</p>
-                        <p>• Crie conteúdo de valor</p>
-                        <p>• Use hashtag #EliteLife</p>
-                        <p>• Indique para amigos próximos</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Planilhas para Imprimir */}
-          {showPrintableWorksheets && (
-            <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-              <div className="bg-black/90 rounded-3xl border border-yellow-500/30 w-full max-w-6xl max-h-[80vh] overflow-y-auto">
-                <div className="flex items-center justify-between p-6 border-b border-white/10">
-                  <h2 className="text-2xl font-bold text-white flex items-center">
-                    <Printer className="w-6 h-6 text-yellow-400 mr-2" />
-                    Planilhas Elite para Imprimir
-                  </h2>
-                  <button
-                    onClick={() => setShowPrintableWorksheets(false)}
-                    className="text-gray-400 hover:text-white"
-                  >
-                    <X className="w-6 h-6" />
-                  </button>
-                </div>
-                
-                <div className="p-6">
-                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {[
-                      {
-                        category: 'Finanças',
-                        icon: DollarSign,
-                        color: 'green',
-                        worksheets: [
-                          'Controle de Gastos Mensal',
-                          'Planner de Investimentos',
-                          'Metas Financeiras 2024',
-                          'Calculadora de Juros Compostos',
-                          'Orçamento Familiar Elite'
-                        ]
-                      },
-                      {
-                        category: 'Saúde',
-                        icon: Heart,
-                        color: 'red',
-                        worksheets: [
-                          'Acompanhamento Médico',
-                          'Controle de Exames',
-                          'Histórico de Sintomas',
-                          'Medicamentos e Horários',
-                          'Metas de Saúde'
-                        ]
-                      },
-                      {
-                        category: 'Cuidado Pessoal',
-                        icon: Sparkles,
-                        color: 'purple',
-                        worksheets: [
-                          'Rotina de Skincare',
-                          'Planner de Autocuidado',
-                          'Metas de Bem-estar',
-                          'Controle de Humor',
-                          'Rituais de Relaxamento'
-                        ]
-                      },
-                      {
-                        category: 'Fitness',
-                        icon: Dumbbell,
-                        color: 'blue',
-                        worksheets: [
-                          'Ficha de Treino Personalizada',
-                          'Controle de Medidas',
-                          'Progresso de Força',
-                          'Planner de Exercícios',
-                          'Metas de Performance'
-                        ]
-                      }
-                    ].map((section, index) => (
-                      <div key={index} className={`bg-${section.color}-500/10 rounded-2xl p-6 border border-${section.color}-500/30`}>
-                        <div className="text-center mb-4">
-                          <section.icon className={`w-12 h-12 text-${section.color}-400 mx-auto mb-2`} />
-                          <h3 className={`text-xl font-bold text-${section.color}-400`}>{section.category}</h3>
-                        </div>
-                        
-                        <div className="space-y-3">
-                          {section.worksheets.map((worksheet, i) => (
-                            <div key={i} className="bg-white/5 rounded-xl p-3 flex items-center justify-between">
-                              <span className="text-white text-sm font-semibold">{worksheet}</span>
-                              <button
-                                onClick={() => alert(`Baixando: ${worksheet}.pdf`)}
-                                className={`bg-${section.color}-500 text-white p-2 rounded-lg hover:bg-${section.color}-400 transition-colors`}
-                              >
-                                <Download className="w-4 h-4" />
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-                        
-                        <button
-                          onClick={() => alert(`Baixando pacote completo: ${section.category}.zip`)}
-                          className={`w-full mt-4 bg-gradient-to-r from-${section.color}-400 to-${section.color}-500 text-white font-bold py-2 rounded-xl hover:scale-105 transition-all duration-300`}
-                        >
-                          BAIXAR PACOTE COMPLETO
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="mt-8 bg-gradient-to-r from-yellow-500/20 to-amber-500/20 rounded-2xl p-6 border border-yellow-500/30">
-                    <h3 className="text-2xl font-bold text-yellow-400 mb-4 text-center">📋 Como Usar as Planilhas</h3>
-                    <div className="grid md:grid-cols-3 gap-6 text-sm text-gray-300">
-                      <div>
-                        <h4 className="text-white font-bold mb-2">1. Download</h4>
-                        <p>Baixe as planilhas em PDF de alta qualidade, otimizadas para impressão A4.</p>
-                      </div>
-                      <div>
-                        <h4 className="text-white font-bold mb-2">2. Impressão</h4>
-                        <p>Imprima em papel de qualidade. Recomendamos papel 90g para melhor durabilidade.</p>
-                      </div>
-                      <div>
-                        <h4 className="text-white font-bold mb-2">3. Uso Diário</h4>
-                        <p>Preencha diariamente para acompanhar seu progresso e atingir suas metas Elite.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Conteúdo principal baseado na view atual */}
+          {/* Conteúdo baseado na view atual */}
           {currentView === 'courses' && (
             <div>
               <div className="text-center mb-8">
                 <h1 className="text-4xl font-bold text-white mb-4">🎓 Seus Cursos Elite</h1>
-                <p className="text-gray-300">Trilhas baseadas nos melhores estudos do mundo</p>
+                <p className="text-gray-300">40 trilhas baseadas nos melhores estudos do mundo</p>
               </div>
               
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1482,6 +1641,34 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                         <span className="text-yellow-400 text-sm font-bold">{course.level}</span>
                       </div>
                       
+                      {/* Recomendações de Livros */}
+                      {course.bookRecommendations && (
+                        <div className="mb-4 bg-blue-500/10 rounded-xl p-3 border border-blue-500/30">
+                          <h4 className="text-blue-400 font-bold text-sm mb-2 flex items-center">
+                            <BookOpen className="w-3 h-3 mr-1" />
+                            Livros Recomendados:
+                          </h4>
+                          <ul className="space-y-1">
+                            {course.bookRecommendations.map((book, index) => (
+                              <li key={index} className="text-gray-300 text-xs">• {book}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      
+                      {/* Seção de Avaliações */}
+                      <div className="mb-4 bg-green-500/10 rounded-xl p-3 border border-green-500/30">
+                        <h4 className="text-green-400 font-bold text-sm mb-2">💬 Avaliações dos Alunos:</h4>
+                        <div className="space-y-2">
+                          <div className="text-xs">
+                            <p className="text-gray-300">"Curso transformador! Mudou minha vida completamente." - ⭐⭐⭐⭐⭐</p>
+                          </div>
+                          <div className="text-xs">
+                            <p className="text-gray-300">"Metodologia incrível, resultados em 30 dias!" - ⭐⭐⭐⭐⭐</p>
+                          </div>
+                        </div>
+                      </div>
+                      
                       <div className="space-y-2">
                         <button
                           onClick={() => alert(course.locked ? 'Assine um plano premium para acessar este curso!' : 'Abrindo curso...')}
@@ -1506,7 +1693,7 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                         </button>
                         
                         <button
-                          onClick={() => alert(`🎬 ${course.preview}\\n\\n"Bem-vindo ao EliteLife! Você está prestes a iniciar uma jornada de transformação total. Este curso foi desenvolvido com base nos melhores estudos do mundo e vai revolucionar sua vida!"`)}
+                          onClick={() => alert(`🎬 ${course.preview}\n\n"Bem-vindo ao EliteLife! Você está prestes a iniciar uma jornada de transformação total. Este curso foi desenvolvido com base nos melhores estudos do mundo e vai revolucionar sua vida!"`)}
                           className="w-full bg-blue-600 text-white font-bold py-2 rounded-xl hover:bg-blue-500 transition-all duration-300"
                         >
                           <Video className="w-4 h-4 inline mr-2" />
@@ -1731,10 +1918,181 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
             </div>
           )}
 
+          {currentView === 'nutrition' && (
+            <div>
+              <div className="text-center mb-8">
+                <h1 className="text-4xl font-bold text-white mb-4">🍎 Nutrição Elite Inteligente</h1>
+                <p className="text-gray-300">Planejamento nutricional avançado baseado nos melhores nutricionistas do mundo</p>
+              </div>
+              
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {/* Tracker Diário */}
+                <div className="bg-black/40 backdrop-blur-sm rounded-3xl p-6 border border-blue-500/30">
+                  <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
+                    <Activity className="w-6 h-6 text-blue-400 mr-2" />
+                    Tracker Diário
+                  </h2>
+                  
+                  <div className="space-y-4">
+                    {[
+                      { key: 'water', icon: Droplets, label: 'Água (ml)', color: 'blue', unit: 'ml' },
+                      { key: 'calories', icon: Flame, label: 'Calorias', color: 'red', unit: 'kcal' },
+                      { key: 'protein', icon: Beef, label: 'Proteínas (g)', color: 'purple', unit: 'g' },
+                      { key: 'carbs', icon: Wheat, label: 'Carboidratos (g)', color: 'yellow', unit: 'g' },
+                      { key: 'fiber', icon: Salad, label: 'Fibras (g)', color: 'green', unit: 'g' },
+                      { key: 'exercise', icon: Dumbbell, label: 'Exercício (min)', color: 'orange', unit: 'min' }
+                    ].map((item) => (
+                      <div key={item.key} className="bg-white/5 rounded-xl p-4">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center">
+                            <item.icon className={`w-5 h-5 text-${item.color}-400 mr-2`} />
+                            <span className="text-white font-semibold text-sm">{item.label}</span>
+                          </div>
+                          <span className={`text-${item.color}-400 font-bold`}>
+                            {dailyNutrition[item.key as keyof typeof dailyNutrition]}/{nutritionGoals[item.key as keyof typeof nutritionGoals]} {item.unit}
+                          </span>
+                        </div>
+                        
+                        <div className="w-full bg-gray-700 rounded-full h-2 mb-3">
+                          <div 
+                            className={`bg-${item.color}-400 h-2 rounded-full transition-all duration-300`}
+                            style={{ 
+                              width: `${Math.min(100, (dailyNutrition[item.key as keyof typeof dailyNutrition] / nutritionGoals[item.key as keyof typeof nutritionGoals]) * 100)}%` 
+                            }}
+                          ></div>
+                        </div>
+                        
+                        <div className="flex space-x-2">
+                          <button
+                            onClick={() => updateNutrition(item.key, item.key === 'water' ? 250 : item.key === 'calories' ? 100 : item.key === 'exercise' ? 15 : 10)}
+                            className={`flex-1 bg-${item.color}-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-${item.color}-400 transition-colors`}
+                          >
+                            + {item.key === 'water' ? '250ml' : item.key === 'calories' ? '100kcal' : item.key === 'exercise' ? '15min' : '10g'}
+                          </button>
+                          <button
+                            onClick={() => updateNutrition(item.key, -(item.key === 'water' ? 250 : item.key === 'calories' ? 100 : item.key === 'exercise' ? 15 : 10))}
+                            className="bg-gray-600 text-white px-3 py-1 rounded-lg text-sm hover:bg-gray-500 transition-colors"
+                          >
+                            -
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Plano Nutricional */}
+                <div className="bg-black/40 backdrop-blur-sm rounded-3xl p-6 border border-green-500/30">
+                  <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
+                    <Apple className="w-6 h-6 text-green-400 mr-2" />
+                    Plano Personalizado
+                  </h2>
+                  
+                  <div className="space-y-4">
+                    <div className="bg-green-500/20 rounded-xl p-4 border border-green-500/30">
+                      <h3 className="text-green-400 font-bold mb-2">🎯 Suas Metas Diárias</h3>
+                      <div className="space-y-2 text-sm">
+                        <p className="text-gray-300">💧 Água: {nutritionGoals.water}ml</p>
+                        <p className="text-gray-300">🔥 Calorias: {nutritionGoals.calories}kcal</p>
+                        <p className="text-gray-300">🥩 Proteínas: {nutritionGoals.protein}g</p>
+                        <p className="text-gray-300">🌾 Carboidratos: {nutritionGoals.carbs}g</p>
+                        <p className="text-gray-300">🥬 Fibras: {nutritionGoals.fiber}g</p>
+                        <p className="text-gray-300">💪 Exercício: {nutritionGoals.exercise}min</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-yellow-500/20 rounded-xl p-4 border border-yellow-500/30">
+                      <h3 className="text-yellow-400 font-bold mb-2">📋 Refeições Sugeridas</h3>
+                      <div className="space-y-2 text-sm text-gray-300">
+                        <p><strong>Café:</strong> Ovos + Aveia + Frutas</p>
+                        <p><strong>Almoço:</strong> Frango + Arroz + Salada</p>
+                        <p><strong>Lanche:</strong> Whey + Banana</p>
+                        <p><strong>Jantar:</strong> Peixe + Batata + Vegetais</p>
+                      </div>
+                    </div>
+                    
+                    <button
+                      onClick={generateWeeklyReport}
+                      className="w-full bg-gradient-to-r from-green-400 to-emerald-500 text-black font-bold py-3 rounded-2xl hover:scale-105 transition-all duration-300"
+                    >
+                      📊 GERAR RELATÓRIO SEMANAL
+                    </button>
+                  </div>
+                </div>
+                
+                {/* Relatório Semanal */}
+                <div className="bg-black/40 backdrop-blur-sm rounded-3xl p-6 border border-purple-500/30">
+                  <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
+                    <BarChart3 className="w-6 h-6 text-purple-400 mr-2" />
+                    Relatório Profissional
+                  </h2>
+                  
+                  {weeklyReport ? (
+                    <div className="bg-purple-500/20 rounded-xl p-4 border border-purple-500/30 max-h-96 overflow-y-auto">
+                      <pre className="text-xs text-gray-300 whitespace-pre-wrap">{weeklyReport}</pre>
+                    </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <PieChart className="w-16 h-16 text-purple-400 mx-auto mb-4" />
+                      <p className="text-gray-300 mb-4">Complete uma semana de tracking para gerar seu relatório profissional</p>
+                      <div className="space-y-2 text-sm text-gray-400">
+                        <p>✅ Análise completa dos nutrientes</p>
+                        <p>✅ Recomendações personalizadas</p>
+                        <p>✅ Metas para próxima semana</p>
+                        <p>✅ Insights baseados em IA</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+              
+              {/* Quiz Nutricional Avançado */}
+              <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-3xl p-8 border border-blue-500/30">
+                <h2 className="text-3xl font-bold text-white mb-6 text-center">🧬 Quiz Nutricional Elite</h2>
+                <p className="text-gray-300 text-center mb-8">Baseado nos melhores nutricionistas do mundo: Harvard T.H. Chan, Mayo Clinic, Johns Hopkins</p>
+                
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-blue-400">Perguntas Avançadas:</h3>
+                    <div className="space-y-3 text-sm text-gray-300">
+                      <p>• Qual seu tipo metabólico predominante?</p>
+                      <p>• Você tem intolerâncias alimentares?</p>
+                      <p>• Qual seu nível de atividade física?</p>
+                      <p>• Objetivos: emagrecimento, ganho de massa ou manutenção?</p>
+                      <p>• Histórico familiar de doenças?</p>
+                      <p>• Preferências alimentares e restrições?</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-green-400">Resultado Personalizado:</h3>
+                    <div className="space-y-3 text-sm text-gray-300">
+                      <p>• Plano nutricional de 28 dias</p>
+                      <p>• Cálculo exato de macronutrientes</p>
+                      <p>• Lista de compras otimizada</p>
+                      <p>• Receitas personalizadas</p>
+                      <p>• Suplementação recomendada</p>
+                      <p>• Cronograma de refeições</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="text-center mt-8">
+                  <button
+                    onClick={() => alert('Quiz nutricional avançado em desenvolvimento! Em breve você terá acesso ao plano mais personalizado do mundo.')}
+                    className="bg-gradient-to-r from-blue-400 to-purple-500 text-white font-bold px-8 py-3 rounded-2xl hover:scale-105 transition-all duration-300"
+                  >
+                    FAZER QUIZ AVANÇADO
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {currentView === 'wallet' && (
             <div>
               <div className="text-center mb-8">
-                <h1 className="text-4xl font-bold text-white mb-4">💰 Carteira Elite</h1>
+                <h1 className="text-4xl font-bold text-white mb-4">💰 Carteira Elite Inteligente</h1>
                 <p className="text-gray-300">Gerencie suas metas financeiras e acompanhe seu progresso</p>
               </div>
               
@@ -1862,10 +2220,10 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                 <div className="bg-gradient-to-r from-blue-500/20 to-blue-600/20 rounded-3xl p-6 border border-blue-500/30">
                   <div className="flex items-center justify-between mb-4">
                     <BookOpen className="w-8 h-8 text-blue-400" />
-                    <span className="text-blue-400 font-bold">3/9</span>
+                    <span className="text-blue-400 font-bold">3/40</span>
                   </div>
                   <h3 className="text-white font-bold">Cursos Concluídos</h3>
-                  <p className="text-gray-300 text-sm">33% do seu plano</p>
+                  <p className="text-gray-300 text-sm">7.5% do seu plano</p>
                 </div>
                 
                 <div className="bg-gradient-to-r from-green-500/20 to-green-600/20 rounded-3xl p-6 border border-green-500/30">
@@ -2045,7 +2403,7 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {courses.map((course) => (
+            {courses.slice(0, 9).map((course) => (
               <div key={course.id} className="bg-black/40 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/10">
                 <div className="relative">
                   <img 
@@ -2093,126 +2451,19 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
               onClick={() => setShowCourses(false)}
               className="bg-gray-600 text-white font-bold px-8 py-3 rounded-2xl hover:bg-gray-500 transition-all duration-300 mr-4"
             >
+              <Home className="w-4 h-4 inline mr-2" />
               Voltar ao Início
             </button>
             <button 
-              onClick={() => alert('Redirecionando para planos premium...')}\
+              onClick={() => {
+                setShowCourses(false)
+                setShowPreview(true)
+                setSelectedPlan('Planos Premium')
+              }}
               className="bg-gradient-to-r from-green-400 via-emerald-500 to-green-600 text-black font-bold px-8 py-3 rounded-2xl hover:scale-105 transition-all duration-300"
             >
               VER PLANOS PREMIUM
             </button>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  // Agenda Básica (Teste Grátis)
-  if (showBasicAgenda) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black p-6">
-        <div className="container mx-auto max-w-4xl">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-white mb-4">📅 Sua Agenda Elite Básica</h1>
-            <p className="text-gray-300">Comece sua jornada de transformação hoje mesmo!</p>
-            <div className="mt-4 bg-blue-500/20 border border-blue-500/50 rounded-2xl p-4 max-w-2xl mx-auto">
-              <p className="text-blue-400 font-bold">ℹ️ VERSÃO BÁSICA</p>
-              <p className="text-gray-300 text-sm">Assine um plano premium para agenda editável e funcionalidades avançadas</p>
-            </div>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Agenda do Dia */}
-            <div className="bg-black/40 backdrop-blur-sm rounded-3xl p-6 border border-yellow-500/30">
-              <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
-                <Calendar className="w-6 h-6 text-yellow-400 mr-2" />
-                Hoje - {new Date().toLocaleDateString('pt-BR')}
-              </h2>
-              
-              <div className="space-y-4">
-                {[
-                  { time: '06:00', task: 'Despertar Elite + Hidratação', status: 'pending' },
-                  { time: '06:15', task: 'Treino HIIT (15 min)', status: 'pending' },
-                  { time: '07:00', task: 'Café + Leitura Financeira', status: 'pending' },
-                  { time: '12:00', task: 'Almoço Saudável', status: 'pending' },
-                  { time: '18:00', task: 'Revisão de Metas', status: 'pending' },
-                  { time: '21:00', task: 'Planejamento do Amanhã', status: 'pending' }
-                ].map((item, index) => (
-                  <div key={index} className="flex items-center justify-between bg-white/5 rounded-xl p-4">
-                    <div className="flex items-center">
-                      <span className="text-yellow-400 font-bold mr-4">{item.time}</span>
-                      <span className="text-white">{item.task}</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <CheckCircle className="w-5 h-5 text-gray-500 hover:text-green-400 cursor-pointer" />
-                      <Lock className="w-4 h-4 text-gray-500" title="Assine para editar" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            {/* Metas da Semana */}
-            <div className="bg-black/40 backdrop-blur-sm rounded-3xl p-6 border border-green-500/30">
-              <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
-                <Target className="w-6 h-6 text-green-400 mr-2" />
-                Metas da Semana
-              </h2>
-              
-              <div className="space-y-4">
-                {[
-                  { goal: 'Treinar 5x na semana', progress: 0, total: 5 },
-                  { goal: 'Ler 2 artigos sobre investimentos', progress: 0, total: 2 },
-                  { goal: 'Economizar R$ 200', progress: 0, total: 200 },
-                  { goal: 'Compartilhar 3 posts sobre EliteLife', progress: 0, total: 3 }
-                ].map((goal, index) => (
-                  <div key={index} className="bg-white/5 rounded-xl p-4">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-white font-semibold">{goal.goal}</span>
-                      <span className="text-green-400">{goal.progress}/{goal.total}</span>
-                    </div>
-                    <div className="w-full bg-gray-700 rounded-full h-2">
-                      <div 
-                        className="bg-green-400 h-2 rounded-full transition-all duration-300"
-                        style={{ width: `${(goal.progress / goal.total) * 100}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          
-          <div className="text-center mt-8 space-y-4">
-            <div className="bg-gradient-to-r from-purple-500/20 to-purple-600/20 rounded-3xl p-6 border border-purple-500/30">
-              <h3 className="text-2xl font-bold text-white mb-4">🚀 Desbloqueie o Potencial Completo</h3>
-              <p className="text-gray-300 mb-6">
-                Com um plano premium você terá agenda editável, cursos completos, IA personalizada e muito mais!
-              </p>
-              <div className="flex justify-center space-x-4">
-                <button 
-                  onClick={() => setShowBasicAgenda(false)}
-                  className="bg-gray-600 text-white font-bold px-6 py-3 rounded-2xl hover:bg-gray-500 transition-all duration-300"
-                >
-                  Voltar ao Início
-                </button>
-                <button 
-                  onClick={() => {
-                    setShowBasicAgenda(false)
-                    setShowCourses(true)
-                  }}
-                  className="bg-gradient-to-r from-blue-400 to-blue-500 text-white font-bold px-6 py-3 rounded-2xl hover:scale-105 transition-all duration-300"
-                >
-                  Ver Cursos
-                </button>
-                <button 
-                  onClick={() => alert('Redirecionando para planos premium...')}
-                  className="bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 text-black font-bold px-6 py-3 rounded-2xl hover:scale-105 transition-all duration-300"
-                >
-                  ASSINAR AGORA
-                </button>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -2233,9 +2484,9 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
             <div className="bg-black/40 backdrop-blur-sm rounded-3xl p-6 border border-yellow-500/30">
               <h2 className="text-xl font-bold text-white mb-4 flex items-center">
                 <BookOpen className="w-5 h-5 text-yellow-400 mr-2" />
-                Trilhas Incluídas
+                40 Trilhas Incluídas
               </h2>
-              <div className="space-y-3">
+              <div className="space-y-3 max-h-64 overflow-y-auto">
                 {[
                   'Corpo de Elite (21 dias)',
                   'Mente Milionária (30 dias)',
@@ -2245,7 +2496,38 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                   'Liderança Executiva (30 dias)',
                   'E-commerce Master (60 dias)',
                   'Influencer Elite (30 dias)',
-                  'Nutrição Elite (28 dias)'
+                  'Nutrição Elite (28 dias)',
+                  'Criptomoedas Elite (35 dias)',
+                  'Oratória de Impacto (25 dias)',
+                  'Relacionamentos Elite (30 dias)',
+                  'Vendas Elite (40 dias)',
+                  'Yoga Elite (60 dias)',
+                  'Meditação Elite (21 dias)',
+                  'Fotografia Elite (45 dias)',
+                  'Culinária Elite (50 dias)',
+                  'Design Elite (40 dias)',
+                  'Programação Elite (90 dias)',
+                  'Música Elite (60 dias)',
+                  'Escrita Elite (35 dias)',
+                  'Imóveis Elite (45 dias)',
+                  'Automação Elite (40 dias)',
+                  'Psicologia Elite (50 dias)',
+                  'Idiomas Elite (120 dias)',
+                  'Viagem Elite (30 dias)',
+                  'Sustentabilidade Elite (35 dias)',
+                  'Moda Elite (25 dias)',
+                  'Esportes Elite (60 dias)',
+                  'Parentalidade Elite (40 dias)',
+                  'Envelhecimento Elite (45 dias)',
+                  'Terapia Elite (35 dias)',
+                  'Energia Elite (30 dias)',
+                  'Sono Elite (21 dias)',
+                  'Memória Elite (28 dias)',
+                  'Criatividade Elite (35 dias)',
+                  'Negociação Elite (30 dias)',
+                  'Disciplina Elite (40 dias)',
+                  'Intuição Elite (25 dias)',
+                  'Propósito Elite (50 dias)'
                 ].map((trilha, index) => (
                   <div key={index} className="flex items-center text-gray-300">
                     <Play className="w-4 h-4 text-green-400 mr-2" />
@@ -2266,13 +2548,18 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                   'IA Coach 24/7 Avançado',
                   'Agenda Editável Inteligente',
                   'Tracker Nutricional Completo',
-                  'Carteira Digital',
+                  'E-commerce Hub Completo',
+                  'Influencer IA Viral',
+                  'Carteira Digital Inteligente',
                   'Certificados Oficiais',
                   'Comunidade VIP',
                   'Planilhas para Imprimir',
                   'Ranking e Medalhas',
                   'Suporte Prioritário',
-                  'E-books Exclusivos'
+                  'E-books Exclusivos',
+                  'Suporte Multilíngue',
+                  'Lembretes Automáticos',
+                  'Relatórios Semanais'
                 ].map((recurso, index) => (
                   <div key={index} className="flex items-center text-gray-300">
                     <Sparkles className="w-4 h-4 text-blue-400 mr-2" />
@@ -2331,11 +2618,11 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                 <div className="space-y-3">
                   <div className="flex items-center">
                     <BookOpen className="w-5 h-5 text-blue-400 mr-3" />
-                    <span className="text-gray-300">200+ vídeos em HD</span>
+                    <span className="text-gray-300">800+ vídeos em HD</span>
                   </div>
                   <div className="flex items-center">
                     <Download className="w-5 h-5 text-green-400 mr-3" />
-                    <span className="text-gray-300">80+ e-books para download</span>
+                    <span className="text-gray-300">200+ e-books para download</span>
                   </div>
                   <div className="flex items-center">
                     <Award className="w-5 h-5 text-yellow-400 mr-3" />
@@ -2348,6 +2635,14 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                   <div className="flex items-center">
                     <Apple className="w-5 h-5 text-red-400 mr-3" />
                     <span className="text-gray-300">Tracker nutricional inteligente</span>
+                  </div>
+                  <div className="flex items-center">
+                    <ShoppingCart className="w-5 h-5 text-orange-400 mr-3" />
+                    <span className="text-gray-300">E-commerce Hub completo</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Megaphone className="w-5 h-5 text-pink-400 mr-3" />
+                    <span className="text-gray-300">Influencer IA viral</span>
                   </div>
                   <div className="flex items-center">
                     <Printer className="w-5 h-5 text-gray-400 mr-3" />
@@ -2364,7 +2659,8 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
               onClick={() => setShowPreview(false)}
               className="bg-gray-600 text-white font-bold px-8 py-3 rounded-2xl hover:bg-gray-500 transition-all duration-300"
             >
-              Voltar
+              <Home className="w-4 h-4 inline mr-2" />
+              Voltar ao Início
             </button>
             <button 
               onClick={handlePurchase}
@@ -2391,10 +2687,10 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
               <Diamond className="w-12 h-12 text-black" />
             </div>
             <h1 className="text-7xl font-black text-white mb-6 tracking-tight">
-              Elite<span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600">Life</span>
+              {t.title}
             </h1>
             <p className="text-3xl text-gray-200 mb-8 max-w-4xl mx-auto font-light">
-              A plataforma <strong className="text-yellow-400">exclusiva</strong> que transforma pessoas comuns em <strong className="text-yellow-400">milionários saudáveis</strong>
+              {t.subtitle}
             </p>
             <div className="text-xl text-yellow-300 font-semibold tracking-wide">
               APRESENTAÇÃO EXECUTIVA PREMIUM • 2024
@@ -2407,13 +2703,13 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
               onClick={handleFreeTest}
               className="bg-gradient-to-r from-green-400 via-emerald-500 to-green-600 text-black font-bold text-xl px-12 py-4 rounded-2xl hover:scale-105 transition-all duration-300 shadow-2xl shadow-green-500/50 mr-4"
             >
-              TESTE GRÁTIS AGORA
+              {t.freeTest}
             </button>
             <button 
               onClick={handleQuizStart}
               className="bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 text-black font-bold text-xl px-12 py-4 rounded-2xl hover:scale-105 transition-all duration-300 shadow-2xl shadow-yellow-500/50"
             >
-              FAZER QUIZ COMPLETO
+              {t.completeQuiz}
             </button>
           </div>
         </div>
@@ -2490,7 +2786,7 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                   onClick={handleQuizStart}
                   className="bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 text-black font-bold text-xl px-12 py-4 rounded-2xl hover:scale-105 transition-all duration-300 shadow-2xl shadow-yellow-500/50"
                 >
-                  FAZER QUIZ COMPLETO
+                  {t.completeQuiz}
                 </button>
               </div>
             </div>
@@ -2678,7 +2974,7 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                     Descobri o EliteLife - a plataforma que está transformando pessoas em milionários saudáveis!<br/><br/>
                     
                     ✅ Corpo de atleta + Mente milionária<br/>
-                    ✅ Trilhas baseadas em Harvard e Stanford<br/>
+                    ✅ 40 trilhas baseadas em Harvard e Stanford<br/>
                     ✅ Sistema de renda passiva integrado<br/>
                     ✅ IA Coach personalizada 24/7<br/>
                     ✅ Tracker nutricional inteligente<br/>
@@ -2758,7 +3054,7 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                 {
                   icon: Brain,
                   title: "Conhecimento Total da Plataforma",
-                  desc: "Entende todos os 9 cursos, funcionalidades, planos e pode responder qualquer dúvida sobre o EliteLife."
+                  desc: "Entende todos os 40 cursos, funcionalidades, planos e pode responder qualquer dúvida sobre o EliteLife."
                 },
                 {
                   icon: Target,
@@ -2808,8 +3104,10 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                 price: "GRÁTIS", 
                 features: [
                   "Quiz de perfil completo",
-                  "Agenda básica (não editável)",
-                  "Preview dos cursos",
+                  "Agenda editável com limitações",
+                  "1 curso completo liberado",
+                  "Controle nutricional básico",
+                  "1 relatório nutricional",
                   "Chat AI básico",
                   "1 cupom de afiliado"
                 ], 
@@ -2819,16 +3117,17 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
               },
               { 
                 plan: "PRO Elite", 
-                price: "R$ 39,90/mês", 
+                price: "R$ 49,90/mês", 
                 features: [
-                  "Todas as 9 trilhas premium",
+                  "Todas as 40 trilhas premium",
                   "IA Coach pessoal avançado",
                   "Agenda editável completa",
-                  "Tracker nutricional",
+                  "Tracker nutricional completo",
                   "Carteira inteligente",
                   "Certificados oficiais",
                   "Comunidade VIP",
-                  "E-books para download"
+                  "E-books para download",
+                  "Suporte multilíngue"
                 ], 
                 color: "from-purple-500 to-purple-600",
                 popular: true,
@@ -2836,7 +3135,7 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
               },
               { 
                 plan: "Anual VIP", 
-                price: "R$ 299/ano", 
+                price: "R$ 329,90/ano", 
                 features: [
                   "Tudo do PRO Elite",
                   "4 meses GRÁTIS",
@@ -2844,7 +3143,8 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                   "Acesso vitalício garantido",
                   "Masterclasses exclusivas",
                   "Networking presencial",
-                  "Material físico incluso"
+                  "Material físico incluso",
+                  "Desconto em eventos"
                 ], 
                 color: "from-blue-500 to-blue-600",
                 popular: false,
@@ -2852,7 +3152,7 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
               },
               { 
                 plan: "Influencer Hub", 
-                price: "R$ 49,90/mês", 
+                price: "R$ 119,90/mês", 
                 features: [
                   "Tudo do PRO Elite",
                   "IA de conteúdo viral",
@@ -2861,7 +3161,8 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                   "Calendários fitness/nutrição",
                   "Hashtags otimizadas",
                   "Scripts prontos",
-                  "Suporte para creators"
+                  "Suporte para creators",
+                  "Editor de thumbnails"
                 ], 
                 color: "from-pink-500 to-rose-600",
                 popular: false,
@@ -2872,6 +3173,8 @@ Relatório gerado pelo sistema EliteLife - Nutrição Inteligente
                 price: "R$ 79,90/mês", 
                 features: [
                   "TUDO incluído",
+                  "E-commerce Hub completo",
+                  "Influencer IA viral",
                   "Mentoria 1:1 semanal",
                   "Consultoria personalizada",
                   "Acesso antecipado",
